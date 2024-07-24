@@ -1,5 +1,6 @@
 const choices = ['rock', 'paper', 'scissors'];
 humanScore = computerScore = 0;
+roundsPlayed = 0;
 
 function getComputerChoice() {
     var randomIndex = Math.floor(Math.random() * 3);
@@ -22,42 +23,51 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice) {
-    var computerChoice = getComputerChoice();
+    const computerChoice = getComputerChoice();
     const resultDiv = document.getElementById('result');
+    let resultMessage;
     // If both are the same inputs, it is a tie
     if (humanChoice === computerChoice) {
-        console.log(`Both players chose ${humanChoice}. It's a tie!`);
-        resultMessage = `Both players chose ${humanChoice}. It's a tie!`;
+        console.log("Tie");
+        resultMessage = `Both players chose ${humanChoice}. It's a tie! <br>`;
     // If human wins, increment human score
     } else if (humanChoice === 'rock' && computerChoice === 'scissors' ||
         humanChoice === 'paper' && computerChoice === 'rock' ||
         humanChoice === 'scissors' && computerChoice === 'paper') {
-        console.log(`${humanChoice} beats ${computerChoice}. You Win! :)`);
         humanScore++;
-        resultMessage = `${humanChoice} beats ${computerChoice}. You win! :)`;
+        console.log("Win");
+        resultMessage = `${humanChoice} beats ${computerChoice}. You win! :) <br>`;
     // Otherwise computer wins, increment computer score
     } else {
-        console.log(`${computerChoice} beats ${humanChoice}. You Lose! :(`);
         computerScore++;
-        resultMessage = `${computerChoice} beats ${humanChoice}. You lose! :(`;
+        console.log("Lose");
+        resultMessage = `${computerChoice} beats ${humanChoice}. You lose! :( <br>`;
     }
-    resultMessage += ` Score: Human ${humanScore} - Computer ${computerScore}`;
-    //resultDiv.innerHTML = resultMessage;
+    roundsPlayed++;
+    resultMessage += `Round ${roundsPlayed} Score: Human ${humanScore} - Computer ${computerScore}`;
+    resultDiv.innerHTML = resultMessage;
+    if (roundsPlayed >= 5) {
+        displayFinalScore();
+        resetGame();
+    }
 }
 
-function playGame() {
-    humanScore = computerScore = 0;
-    for (var i = 0; i < 5; i++) {
-        var humanChoice = getHumanChoice();
-        playRound(humanChoice);
-        console.log(`Human: ${humanScore} Computer: ${computerScore}`);
-    }
-    console.log(`Final Score: Human: ${humanScore} Computer: ${computerScore}`);
+function displayFinalScore() {
+    const resultDiv = document.getElementById('result');
+    let finalMessage = "";
     if (humanScore > computerScore) {
-        console.log("You Win! :)");
+        finalMessage += "You Win the Game! :)";
     } else if (humanScore < computerScore) {
-        console.log("You Lose! :(");
+        finalMessage += "You Lose the Game! :(";
     } else {
-        console.log("It's a tie!");
+        finalMessage += "The Game is a Tie!";
     }
+    finalMessage += `<br> Final Score - Human: ${humanScore}, Computer: ${computerScore}.`
+    resultDiv.innerHTML = finalMessage;
+    
+}
+
+function resetGame() {
+    humanScore = computerScore = 0;
+    roundsPlayed = 0;
 }
