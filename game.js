@@ -1,4 +1,4 @@
-const choices = ['rock', 'paper', 'scissors'];
+const choices = ['Rock', 'Paper', 'Scissors'];
 humanScore = computerScore = 0;
 roundsPlayed = 0;
 
@@ -14,18 +14,18 @@ function playRound(humanChoice) {
     const resultDiv = document.getElementById('result');
     resultDiv.textContent = ''; 
 
-    let resultMessage = document.createTextNode(`Both players chose ${humanChoice}. It's a tie! `);
+    let resultMessage = document.createTextNode(`Both players chose ${humanChoice}. It's a tie this round. `);
     if (humanChoice === computerChoice) {
         resultDiv.appendChild(resultMessage);
-    } else if (humanChoice === 'rock' && computerChoice === 'scissors' ||
-               humanChoice === 'paper' && computerChoice === 'rock' ||
-               humanChoice === 'scissors' && computerChoice === 'paper') {
+    } else if (humanChoice === choices[0] && computerChoice === choices[2] ||
+               humanChoice === choices[1] && computerChoice === choices[0] ||
+               humanChoice === choices[2] && computerChoice === choices[1]) {
         humanScore++;
-        resultMessage = document.createTextNode(`${humanChoice} beats ${computerChoice}. You win! :) `);
+        resultMessage = document.createTextNode(`${humanChoice} beats ${computerChoice}. You win the round. `);
         resultDiv.appendChild(resultMessage);
     } else {
         computerScore++;
-        resultMessage = document.createTextNode(`${computerChoice} beats ${humanChoice}. You lose! :( `);
+        resultMessage = document.createTextNode(`${computerChoice} beats ${humanChoice}. You lose the round. `);
         resultDiv.appendChild(resultMessage);
     }
 
@@ -33,14 +33,17 @@ function playRound(humanChoice) {
     resultDiv.appendChild(document.createElement('br'));
 
     roundsPlayed++;
-    // Append score message
-    let scoreMessage = document.createTextNode(`Round ${roundsPlayed} Score: Human ${humanScore} - Computer ${computerScore}`);
-    resultDiv.appendChild(scoreMessage);
-
+    
     // Check if game should end
     if (roundsPlayed >= 5) {
+        let scoreMessage = document.createTextNode(`Final Score: Human ${humanScore} - Computer ${computerScore}`);
+        resultDiv.appendChild(scoreMessage);
         displayFinalScore(resultDiv);
         resetGame();
+    } else {
+        // Append score message
+        let scoreMessage = document.createTextNode(`Round ${roundsPlayed}/5 Score: Human ${humanScore} - Computer ${computerScore}`);
+        resultDiv.appendChild(scoreMessage);
     }
 }
 
