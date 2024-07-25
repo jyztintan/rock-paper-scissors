@@ -26,3 +26,9 @@ button {
     justify-content: center;
     align-items: center;
 }
+
+#result img {
+    width: 500px;
+    height: 350px;
+    object-fit: cover;
+}

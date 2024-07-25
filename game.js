@@ -47,16 +47,28 @@ function playRound(humanChoice) {
 
 function displayFinalScore(resultDiv) {
     let finalMessage = "";
+    let imagePath = "";
+
     if (humanScore > computerScore) {
         finalMessage = "You Win the Game! :)";
+        imagePath = "https://media3.giphy.com/media/uRAhwxlVBP6ied6EgB/200w.gif?cid=6c09b95237yr5gjcc9perey3ez0lwyeagsm1kd2yek08kupu&ep=v1_gifs_search&rid=200w.gif&ct=g";
     } else if (humanScore < computerScore) {
         finalMessage = "You Lose the Game! :(";
+        imagePath = "https://i.gifer.com/RT5l.gif";
     } else {
         finalMessage = "The Game is a Tie!";
+        imagePath = "https://media.tenor.com/46S_6vqUkNUAAAAM/fixing-tie.gif";
     }
     resultDiv.appendChild(document.createElement('br'));
     let finalNote = document.createTextNode(finalMessage);
     resultDiv.appendChild(finalNote);
+
+    resultDiv.appendChild(document.createElement('br'));
+    let resultImage = document.createElement('img');
+    resultImage.className = 'result-image';
+    resultImage.src = imagePath;
+    resultImage.alt = "Game Result"; 
+    resultDiv.appendChild(resultImage);
 }
 
 function resetGame() {
