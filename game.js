@@ -9,62 +9,54 @@ function getComputerChoice() {
     return choice
 }
 
-
-function getHumanChoice() {
-    var choice = prompt("Please choose rock, paper, or scissors.");
-    choice = choice.toLowerCase();
-    const validChoices = ['rock', 'paper', 'scissors'];
-
-    while (!validChoices.includes(choice)) {
-        choice = prompt(`${choice} is not a valid choice. Please choose rock, paper, or scissors`);
-    }
-    console.log("Human chose: " + choice);
-    return choice;
-}
-
 function playRound(humanChoice) {
     const computerChoice = getComputerChoice();
     const resultDiv = document.getElementById('result');
-    let resultMessage;
-    // If both are the same inputs, it is a tie
+    resultDiv.textContent = ''; 
+
+    let resultMessage = document.createTextNode(`Both players chose ${humanChoice}. It's a tie! `);
     if (humanChoice === computerChoice) {
-        console.log("Tie");
-        resultMessage = `Both players chose ${humanChoice}. It's a tie! <br>`;
-    // If human wins, increment human score
+        resultDiv.appendChild(resultMessage);
     } else if (humanChoice === 'rock' && computerChoice === 'scissors' ||
-        humanChoice === 'paper' && computerChoice === 'rock' ||
-        humanChoice === 'scissors' && computerChoice === 'paper') {
+               humanChoice === 'paper' && computerChoice === 'rock' ||
+               humanChoice === 'scissors' && computerChoice === 'paper') {
         humanScore++;
-        console.log("Win");
-        resultMessage = `${humanChoice} beats ${computerChoice}. You win! :) <br>`;
-    // Otherwise computer wins, increment computer score
+        resultMessage = document.createTextNode(`${humanChoice} beats ${computerChoice}. You win! :) `);
+        resultDiv.appendChild(resultMessage);
     } else {
         computerScore++;
-        console.log("Lose");
-        resultMessage = `${computerChoice} beats ${humanChoice}. You lose! :( <br>`;
+        resultMessage = document.createTextNode(`${computerChoice} beats ${humanChoice}. You lose! :( `);
+        resultDiv.appendChild(resultMessage);
     }
+
+    // Adding a line break
+    resultDiv.appendChild(document.createElement('br'));
+
     roundsPlayed++;
-    resultMessage += `Round ${roundsPlayed} Score: Human ${humanScore} - Computer ${computerScore}`;
-    resultDiv.innerHTML = resultMessage;
+    // Append score message
+    let scoreMessage = document.createTextNode(`Round ${roundsPlayed} Score: Human ${humanScore} - Computer ${computerScore}`);
+    resultDiv.appendChild(scoreMessage);
+
+    // Check if game should end
     if (roundsPlayed >= 5) {
-        displayFinalScore();
+        displayFinalScore(resultDiv);
         resetGame();
     }
 }
 
-function displayFinalScore() {
-    const resultDiv = document.getElementById('result');
+
+function displayFinalScore(resultDiv) {
     let finalMessage = "";
     if (humanScore > computerScore) {
-        finalMessage += "You Win the Game! :)";
+        finalMessage = "You Win the Game! :)";
     } else if (humanScore < computerScore) {
-        finalMessage += "You Lose the Game! :(";
+        finalMessage = "You Lose the Game! :(";
     } else {
-        finalMessage += "The Game is a Tie!";
+        finalMessage = "The Game is a Tie!";
     }
-    finalMessage += `<br> Final Score - Human: ${humanScore}, Computer: ${computerScore}.`
-    resultDiv.innerHTML = finalMessage;
-    
+    resultDiv.appendChild(document.createElement('br'));
+    let finalNote = document.createTextNode(finalMessage);
+    resultDiv.appendChild(finalNote);
 }
 
 function resetGame() {
