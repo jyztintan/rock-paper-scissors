@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="styles.css">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="game.js" defer></script>
 </head>
+
 <body>
     <h1>Let's Play Rock Paper Scissors!</h1>
     <h3>Can you emerge victorious in a best of 5 rounds?</h3>
-    <div id="choices">
+    <div class="choices">
         <button onclick="playRound('Rock')">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3E_tf23oVS8wKfopnpRn4zfNSGx_YqyX53g&s"/><br>Rock
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3E_tf23oVS8wKfopnpRn4zfNSGx_YqyX53g&s" /><br>Rock
         </button>
         <button onclick="playRound('Paper')">
             <img src="https://i.pinimg.com/736x/bf/35/42/bf35421dc71d47eaa6612b17108496bf.jpg" /><br>Paper
@@ -21,6 +24,17 @@
             <img src="https://www.funcarnival.com/cdn/shop/products/CAU11-015_18.jpg?v=1654893132" /><br>Scissors
         </button>
     </div>
+    <div class="choices">
+        <div id="label" class="choiceDisplay">
+            <h4>Your Choice:</h4>
+        </div>
+        <div id="playerChoice" class="choiceDisplay"></div>
+        <div id="label" class="choiceDisplay">
+            <h4>Computer's Choice:</h4>
+        </div>
+        <div id="computerChoice" class="choiceDisplay"></div>
+    </div>
     <p id="result">Game has not started yet.</p>
 </body>
+
 </html>

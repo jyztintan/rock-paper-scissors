@@ -11,6 +11,7 @@ function getComputerChoice() {
 
 function playRound(humanChoice) {
     const computerChoice = getComputerChoice();
+    displayChoice(humanChoice, computerChoice);
     const resultDiv = document.getElementById('result');
     resultDiv.textContent = ''; 
 
@@ -77,4 +78,34 @@ function displayFinalScore(resultDiv) {
 function resetGame() {
     humanScore = computerScore = 0;
     roundsPlayed = 0;
+}
+
+function displayChoice(playerChoice, computerChoice) {
+    const playerDiv = document.getElementById('playerChoice');
+    const computerDiv = document.getElementById('computerChoice');
+
+    // Clear previous choices
+    playerDiv.innerHTML = '';
+    computerDiv.innerHTML = '';
+
+    // Display player's choice
+    const playerImage = document.createElement('img');
+    playerImage.src = getImagePath(playerChoice);
+    playerImage.alt = playerChoice;
+    playerDiv.appendChild(playerImage);
+
+    // Display computer's choice
+    const computerImage = document.createElement('img');
+    computerImage.src = getImagePath(computerChoice);
+    computerImage.alt = computerChoice;
+    computerDiv.appendChild(computerImage);
+}
+
+function getImagePath(choice) {
+    switch(choice) {
+        case 'Rock': return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3E_tf23oVS8wKfopnpRn4zfNSGx_YqyX53g&s';
+        case 'Paper': return 'https://i.pinimg.com/736x/bf/35/42/bf35421dc71d47eaa6612b17108496bf.jpg';
+        case 'Scissors': return 'https://www.funcarnival.com/cdn/shop/products/CAU11-015_18.jpg?v=1654893132';
+        default: return ''; // Default case if something goes wrong
+    }
 }
